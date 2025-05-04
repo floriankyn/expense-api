@@ -1,4 +1,5 @@
 POST http://localhost:3000/transactions
+Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
@@ -9,5 +10,4 @@ Content-Type: application/json
   "location": "Mâcon",
   "date": "2025-10-01T12:00:00Z"
 }
-
 

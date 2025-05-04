@@ -1,0 +1,13 @@
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{
+  "store": "Boulanger",
+  "amount": 5.79,
+  "currency": "EUR",
+  "card": "N26 Mastercard",
+  "location": "Mâcon",
+  "date": "2025-10-01T12:00:00Z"
+}
+
+

@@ -11,8 +11,14 @@ export class TransactionsController {
 
     @UseGuards(JwtAuthGuard)
     @Get(':id')
+    getTransactions() {
+        return this.transactionsService.getTransactions();
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
     getTransaction(@Param('id') id: string) {
-        return this.transactionsService.getTransactions(id);
+        return this.transactionsService.getTransaction(id);
     }
 
     @UseGuards(JwtAuthGuard)

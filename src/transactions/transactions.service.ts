@@ -9,7 +9,11 @@ export class TransactionsService {
     constructor(@InjectModel(Transactions.name) private transactionsModel: Model<Transactions>) {
     }
 
-    async getTransactions(id: string): Promise<Transactions> {
+    async getTransactions(): Promise<Transactions[]> {
+        return this.transactionsModel.find().exec();
+    }
+
+    async getTransaction(id: string): Promise<Transactions> {
         const transactions = await this.transactionsModel.findById(id).exec();
         if (!transactions) {
             throw new Error(`Transaction with id ${id} not found`);

@@ -6,6 +6,7 @@ import {AppService} from './app.service';
 import {TransactionsModule} from './transactions/transactions.module';
 import {AuthModule} from "./auth/auth.module";
 
+
 @Module({
     imports: [
         MongooseModule.forRoot(process.env.MONGODB_URI ?? "", {

@@ -8,6 +8,13 @@ useDotenv: true
 plugins:
     - serverless-offline
 
+custom:
+  serverless-offline:
+    httpPort: 3000
+    lambdaPort: 3002
+    noPrependStageInUrl: true
+
+
 provider:
   name: aws
   runtime: nodejs22.x
@@ -20,7 +27,7 @@ provider:
 
 
 functions:
-  maim:
+  main:
     handler: dist/serverless.handler
     events:
         - http:
@@ -29,9 +36,3 @@ functions:
         - http:
             method: ANY
             path: '{proxy+}'
-
-custom:
-  serverless-offline:
-    httpPort: 3000
-    lambdaPort: 3002
-    noPrependStageInUrl: true

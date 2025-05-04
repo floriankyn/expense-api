@@ -1,0 +1,31 @@
+org: florianlepage
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: expense-api
+service: expense-api
+
+useDotenv: true
+
+plugins:
+    - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: eu-west-3
+
+functions:
+  maim:
+    handler: dist/serverless.handler
+    events:
+        - http:
+            method: ANY
+            path: /
+        - http:
+            method: ANY
+            path: '{proxy+}'
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    lambdaPort: 3002
+    noPrependStageInUrl: true

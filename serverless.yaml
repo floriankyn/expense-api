@@ -12,6 +12,11 @@ provider:
   name: aws
   runtime: nodejs22.x
   region: eu-west-3
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+    MONGODB_PASS: ${env:MONGODB_PASS}
+    MONGODB_USER: ${env:MONGODB_USER}
+
 
 functions:
   maim:

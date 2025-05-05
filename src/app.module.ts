@@ -5,6 +5,7 @@ import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {TransactionsModule} from './transactions/transactions.module';
 import {AuthModule} from "./auth/auth.module";
+import {GoogleSheetsModule} from "./google-sheets/google-sheets.module";
 
 
 @Module({
@@ -18,7 +19,8 @@ import {AuthModule} from "./auth/auth.module";
             isGlobal: true,
         }),
         TransactionsModule,
-        AuthModule
+        AuthModule,
+        GoogleSheetsModule
     ],
     controllers: [AppController],
     providers: [AppService], // ModuleRef does not need to be added here

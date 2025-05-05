@@ -10,7 +10,7 @@ export class TransactionsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get(':id')
+    @Get()
     getTransactions() {
         return this.transactionsService.getTransactions();
     }

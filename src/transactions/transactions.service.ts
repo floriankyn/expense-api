@@ -3,10 +3,14 @@ import {InjectModel} from "@nestjs/mongoose";
 import {Transactions} from "../schemas/transactions.schema";
 import {Model} from "mongoose";
 import {CreateTransactionsDto} from "./dto/create-transactions.dto";
+import {GoogleSheetsModule} from "../google-sheets/google-sheets.module";
+import {GoogleSheetsService} from "../google-sheets/google-sheets.service";
 
 @Injectable()
 export class TransactionsService {
-    constructor(@InjectModel(Transactions.name) private transactionsModel: Model<Transactions>) {
+    constructor(
+        @InjectModel(Transactions.name) private transactionsModel: Model<Transactions>,
+    ) {
     }
 
     async getTransactions(): Promise<Transactions[]> {
@@ -24,6 +28,9 @@ export class TransactionsService {
 
     async createTransaction(createDto: CreateTransactionsDto): Promise<Transactions> {
         const newTransaction = new this.transactionsModel(createDto);
+
+        await new GoogleSheetsService().updateSpreadsheet(createDto)
+
         return newTransaction.save();
     }
 

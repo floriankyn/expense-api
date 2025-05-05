@@ -1,5 +1,0 @@
-GET http://localhost:3000/transactions/6817ac3cd477383364ef085f
-Authorization: Bearer {{access_token}}
-
-
-

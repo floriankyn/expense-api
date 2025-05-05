@@ -8,11 +8,7 @@ export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post('login')
-    login(@Body() body: { username: string }) {
-        // Normally you'd verify username/password here
-        return this.authService.login({
-            userId: '123',
-            username: body.username,
-        });
+    login(@Body() body: { secret_token: string }) {
+        return this.authService.loginWithToken(body.secret_token);
     }
 }

@@ -9,7 +9,7 @@ env:
   PROJECT_ID: '${{ secrets.GOOGLE_PROJECT_ID }}' # TODO: update to your Google Cloud project ID
   REGION: '${{ secrets.REGION }}' # TODO: update to your region
   SERVICE: 'expense-api' # TODO: update to your service name
-  #WORKLOAD_IDENTITY_PROVIDER: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider' # TODO: update to your workload identity provider
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider' # TODO: update to your workload identity provider
 
 jobs:
   deploy:
@@ -52,39 +52,23 @@ jobs:
           service: '${{ env.SERVICE }}'
           region: '${{ env.REGION }}'
           image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}'
-          env:
-            - name: MONGODB_URI
-              value: '${{ secrets.MONGODB_URI }}'
-            - name: MONGODB_USER
-              value: '${{ secrets.MONGODB_USER }}'
-            - name: MONGODB_PASS
-              value: '${{ secrets.MONGODB_PASS }}'
-            - name: JWT_SECRET
-              value: '${{ secrets.JWT_SECRET }}'
-            - name: SECRET_TOKEN
-              value: '${{ secrets.SECRET_TOKEN }}'
-            - name: GOOGLE_SHEETS_ID
-              value: '${{ secrets.GOOGLE_SHEETS_ID }}'
-            - name: GOOGLE_PROJECT_ID
-              value: '${{ secrets.GOOGLE_PROJECT_ID }}'
-            - name: GOOGLE_PRIVATE_KEY_ID
-              value: '${{ secrets.GOOGLE_PRIVATE_KEY_ID }}'
-            - name: GOOGLE_PRIVATE_KEY
-              value: '${{ secrets.GOOGLE_PRIVATE_KEY }}'
-            - name: GOOGLE_CLIENT_EMAIL
-              value: '${{ secrets.GOOGLE_CLIENT_EMAIL }}'
-            - name: GOOGLE_CLIENT_ID
-              value: '${{ secrets.GOOGLE_CLIENT_ID }}'
-            - name: GOOGLE_AUTH_URI
-              value: '${{ secrets.GOOGLE_AUTH_URI }}'
-            - name: GOOGLE_TOKEN_URI
-              value: '${{ secrets.GOOGLE_TOKEN_URI }}'
-            - name: GOOGLE_AUTH_PROVIDER_X509_CERT_URL
-              value: '${{ secrets.GOOGLE_AUTH_PROVIDER_X509_CERT_URL }}'
-            - name: GOOGLE_CLIENT_X509_CERT_URL
-              value: '${{ secrets.GOOGLE_CLIENT_X509_CERT_URL }}'
-            - name: GOOGLE_UNIVERSE_DOMAIN
-              value: '${{ secrets.GOOGLE_UNIVERSE_DOMAIN }}'
+        env:
+          MONGODB_URI: '${{ secrets.MONGODB_URI }}'
+          MONGODB_USER: '${{ secrets.MONGODB_USER }}'
+          MONGODB_PASS: '${{ secrets.MONGODB_PASS }}'
+          JWT_SECRET: '${{ secrets.JWT_SECRET }}'
+          SECRET_TOKEN: '${{ secrets.SECRET_TOKEN }}'
+          GOOGLE_SHEETS_ID: '${{ secrets.GOOGLE_SHEETS_ID }}'
+          GOOGLE_PROJECT_ID: '${{ secrets.GOOGLE_PROJECT_ID }}'
+          GOOGLE_PRIVATE_KEY_ID: '${{ secrets.GOOGLE_PRIVATE_KEY_ID }}'
+          GOOGLE_PRIVATE_KEY: '${{ secrets.GOOGLE_PRIVATE_KEY }}'
+          GOOGLE_CLIENT_EMAIL: '${{ secrets.GOOGLE_CLIENT_EMAIL }}'
+          GOOGLE_CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}'
+          GOOGLE_AUTH_URI: '${{ secrets.GOOGLE_AUTH_URI }}'
+          GOOGLE_TOKEN_URI: '${{ secrets.GOOGLE_TOKEN_URI }}'
+          GOOGLE_AUTH_PROVIDER_X509_CERT_URL: '${{ secrets.GOOGLE_AUTH_PROVIDER_X509_CERT_URL }}'
+          GOOGLE_CLIENT_X509_CERT_URL: '${{ secrets.GOOGLE_CLIENT_X509_CERT_URL }}'
+          GOOGLE_UNIVERSE_DOMAIN: '${{ secrets.GOOGLE_UNIVERSE_DOMAIN }}'
 
       # Show the output (Cloud Run URL)
       - name: 'Show output'

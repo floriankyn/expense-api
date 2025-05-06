@@ -1,98 +1,180 @@
+---
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="NestJS Logo" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  <strong>A NestJS API for logging iPhone payments to MongoDB and Google Sheets</strong><br/>
+  Efficient, serverless transaction tracking powered by Google Cloud Run and Shortcut automations.
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<p align="center">
+  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="License" /></a>
+  <a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Twitter Follow" /></a>
+</p>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 🚀 Overview
 
-```bash
-$ npm install
-```
+This NestJS API serves as a serverless backend that enables:
 
-## Compile and run the project
+* Generating access tokens via API keys.
+* Receiving transaction data from an iOS Shortcut automation after Apple Pay events.
+* Storing transactions in MongoDB.
+* Appending them to a Google Spreadsheet.
 
-```bash
-# development
-$ npm run start
+Hosted on **Google Cloud Run**, it's fully scalable and optimized for event-driven usage.
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 🧰 Tech Stack
 
-## Run tests
+* **Framework**: [NestJS](https://nestjs.com/)
+* **Database**: MongoDB
+* **Spreadsheet Integration**: Google Sheets API
+* **Hosting**: Google Cloud Run
+* **Automation Trigger**: Apple Shortcuts (on iPhone)
 
-```bash
-# unit tests
-$ npm run test
+---
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 📦 Installation
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 🛠️ Running the Project
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# Development mode
+npm run start
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Watch mode
+npm run start:dev
 
-## Support
+# Production build
+npm run start:prod
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 🧪 Testing
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+# Unit tests
+npm run test
 
-## License
+# End-to-end tests
+npm run test:e2e
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# Test coverage
+npm run test:cov
+```
+
+---
+
+## 🔐 Usage
+
+1. **Request Access Token**
+
+Send a POST request with your API key:
+
+```http
+POST /auth/login
+Content-Type: application/json
+
+{
+  "secret_token": "your-api-key"
+}
+```
+
+Response:
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+```
+
+2. **Send a Transaction**
+
+Your iOS Shortcut sends a POST request like this:
+
+```http
+POST /transactions
+Authorization: Bearer <access_token>
+Content-Type: application/json
+
+{
+    "amount": 4.47,
+    "card": "Swile",
+    "currency": "EUR",
+    "date": "2025-05-05",
+    "location": "Dijon, Bourgogne-Franche-Compté",
+    "store": "ALDI"
+}
+
+```
+
+---
+
+## 🧾 Data Flow
+
+1. Shortcut automation triggers payment event.
+2. Sends data with the access token to the API.
+3. Transaction is saved to **MongoDB**.
+4. A new row is appended to your **Google Spreadsheet**.
+<p align="left"> <img src="./image.png" alt="System Architecture Diagram" width="600" /> </p>
+---
+
+## 🚀 Deployment
+
+This API runs on [Google Cloud Run](https://cloud.google.com/run):
+
+1. Build Docker image:
+
+   ```bash
+   docker build -t gcr.io/YOUR_PROJECT_ID/your-app-name .
+   ```
+2. Push to Google Container Registry:
+
+   ```bash
+   docker push gcr.io/YOUR_PROJECT_ID/your-app-name
+   ```
+3. Deploy:
+
+   ```bash
+   gcloud run deploy your-app-name \
+     --image gcr.io/YOUR_PROJECT_ID/your-app-name \
+     --platform managed \
+     --region YOUR_REGION \
+     --allow-unauthenticated
+   ```
+
+---
+
+## 📚 Resources
+
+* [NestJS Docs](https://docs.nestjs.com)
+* [MongoDB Docs](https://www.mongodb.com/docs/)
+* [Google Sheets API](https://developers.google.com/sheets/api)
+* [Google Cloud Run Docs](https://cloud.google.com/run/docs)
+* [Apple Shortcuts Guide](https://support.apple.com/guide/shortcuts)
+
+---
+
+## 🤝 Contributing
+
+Feel free to submit issues, suggest improvements, or fork and PR. The project welcomes any community input that improves reliability or usability.
+
+---
+
+## 📄 License
+
+This project is [MIT licensed](./LICENSE).

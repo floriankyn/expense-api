@@ -31,10 +31,7 @@ jobs:
       - name: 'Docker auth'
         run: |-
           gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
-
-  
-  
-
+          
       - name: 'Deploy to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:

@@ -1,0 +1,92 @@
+name: 'Build and Deploy to Cloud Run'
+
+on:
+  push:
+    branches:
+      - 'main'
+
+env:
+  PROJECT_ID: '${{ secrets.GOOGLE_PROJECT_ID }}' # TODO: update to your Google Cloud project ID
+  REGION: '${{ secrets.REGION }}' # TODO: update to your region
+  SERVICE: 'expense-api' # TODO: update to your service name
+  #WORKLOAD_IDENTITY_PROVIDER: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider' # TODO: update to your workload identity provider
+
+jobs:
+  deploy:
+    runs-on: 'ubuntu-latest'
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v2'
+
+      # Authenticate to Google Cloud and Artifact Registry (Google Cloud)
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      # Authenticate Docker to Google Artifact Registry (GAR)
+      - name: 'Docker Auth to Google Artifact Registry'
+        uses: 'docker/login-action@v2'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.auth_token }}'
+          registry: '${{ env.REGION }}-docker.pkg.dev'
+
+      # Build and Push Docker Container to Google Artifact Registry
+      - name: 'Build and Push to Google Artifact Registry'
+        run: |-
+          DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+          docker build --tag "${DOCKER_TAG}" .
+          docker push "${DOCKER_TAG}"
+
+      # Deploy to Cloud Run from Google Artifact Registry
+      - name: 'Deploy to Cloud Run'
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: '${{ env.SERVICE }}'
+          region: '${{ env.REGION }}'
+          image: '${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}'
+          env:
+            - name: MONGODB_URI
+              value: '${{ secrets.MONGODB_URI }}'
+            - name: MONGODB_USER
+              value: '${{ secrets.MONGODB_USER }}'
+            - name: MONGODB_PASS
+              value: '${{ secrets.MONGODB_PASS }}'
+            - name: JWT_SECRET
+              value: '${{ secrets.JWT_SECRET }}'
+            - name: SECRET_TOKEN
+              value: '${{ secrets.SECRET_TOKEN }}'
+            - name: GOOGLE_SHEETS_ID
+              value: '${{ secrets.GOOGLE_SHEETS_ID }}'
+            - name: GOOGLE_PROJECT_ID
+              value: '${{ secrets.GOOGLE_PROJECT_ID }}'
+            - name: GOOGLE_PRIVATE_KEY_ID
+              value: '${{ secrets.GOOGLE_PRIVATE_KEY_ID }}'
+            - name: GOOGLE_PRIVATE_KEY
+              value: '${{ secrets.GOOGLE_PRIVATE_KEY }}'
+            - name: GOOGLE_CLIENT_EMAIL
+              value: '${{ secrets.GOOGLE_CLIENT_EMAIL }}'
+            - name: GOOGLE_CLIENT_ID
+              value: '${{ secrets.GOOGLE_CLIENT_ID }}'
+            - name: GOOGLE_AUTH_URI
+              value: '${{ secrets.GOOGLE_AUTH_URI }}'
+            - name: GOOGLE_TOKEN_URI
+              value: '${{ secrets.GOOGLE_TOKEN_URI }}'
+            - name: GOOGLE_AUTH_PROVIDER_X509_CERT_URL
+              value: '${{ secrets.GOOGLE_AUTH_PROVIDER_X509_CERT_URL }}'
+            - name: GOOGLE_CLIENT_X509_CERT_URL
+              value: '${{ secrets.GOOGLE_CLIENT_X509_CERT_URL }}'
+            - name: GOOGLE_UNIVERSE_DOMAIN
+              value: '${{ secrets.GOOGLE_UNIVERSE_DOMAIN }}'
+
+      # Show the output (Cloud Run URL)
+      - name: 'Show output'
+        run: |
+          echo "Cloud Run URL: ${{ steps.deploy.outputs.url }}"

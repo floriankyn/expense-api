@@ -6,12 +6,11 @@ on:
       - 'main'
 
 env:
-  PROJECT_ID: '${{ secrets.GOOGLE_PROJECT_ID }}' # TODO: update to your Google Cloud project ID
-  REGION: '${{ secrets.REGION }}' # TODO: update to your region
-  SERVICE: 'expense-api' # TODO: update to your service name
+  PROJECT_ID: '${{ secrets.GOOGLE_PROJECT_ID }}' # Google Cloud project ID
+  REGION: '${{ secrets.REGION }}' # Google Cloud region
+  SERVICE: 'expense-api' # Cloud Run service name
   WORKLOAD_IDENTITY_PROVIDER: 'projects/531257834545/locations/global/workloadIdentityPools/github-actions/providers/github'
   SERVICE_ACCOUNT: 'deploy-expense-api-cloud-run@sunny-bastion-458910-h9.iam.gserviceaccount.com'
-  
 
 jobs:
   deploy:
@@ -22,17 +21,18 @@ jobs:
       id-token: 'write'
 
     steps:
+      # Checkout the repository
       - name: 'Checkout'
         uses: 'actions/checkout@v2'
 
-      # Authenticate to Google Cloud and Artifact Registry (Google Cloud)
+      # Authenticate to Google Cloud
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
-      # Authenticate Docker to Google Artifact Registry (GAR)
+      # Authenticate Docker to Google Artifact Registry
       - name: 'Docker Auth to Google Artifact Registry'
         uses: 'docker/login-action@v2'
         with:
@@ -40,14 +40,14 @@ jobs:
           password: '${{ steps.auth.outputs.auth_token }}'
           registry: '${{ env.REGION }}-docker.pkg.dev'
 
-      # Build and Push Docker Container to Google Artifact Registry
+      # Build and Push Docker Image to Google Artifact Registry
       - name: 'Build and Push to Google Artifact Registry'
         run: |-
           DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
           docker build --tag "${DOCKER_TAG}" .
           docker push "${DOCKER_TAG}"
 
-      # Deploy to Cloud Run from Google Artifact Registry
+      # Deploy to Cloud Run
       - name: 'Deploy to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:

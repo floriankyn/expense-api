@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: expense-api-k8s
+spec:
+  selector:
+    app: expense-api-k8s
+  ports:
+    - protocol: TCP
+      port: 3000
+  type: LoadBalancer

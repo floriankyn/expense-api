@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-api-k8s
+spec:
+  selector:
+    matchLabels:
+      app: expense-api-k8s
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: expense-api-k8s
+    spec:
+      containers:
+        - name: expense-api-k8s
+          image:
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_URI
+              value:
+            - name: MONGODB_USER
+              value:
+            - name: MONGODB_PASS
+              value: "Azerty11"
+            - name: JWT_SECRET
+              value:
+            - name: SECRET_TOKEN
+              value:
+            - name: GOOGLE_SHEETS_ID
+              value:
+            - name: GOOGLE_PROJECT_ID
+              value:
+            - name: GOOGLE_PRIVATE_KEY_ID
+              value:
+            - name: GOOGLE_PRIVATE_KEY
+              value:
+            - name: GOOGLE_CLIENT_EMAIL
+              value:
+            - name: GOOGLE_CLIENT_ID
+              value:
+            - name: GOOGLE_AUTH_URI
+              value:
+            - name: GOOGLE_TOKEN_URI
+              value:
+            - name: GOOGLE_AUTH_PROVIDER_X509_CERT_URL
+              value:
+            - name: GOOGLE_CLIENT_X509_CERT_URL
+              value:
+            - name: GOOGLE_UNIVERSE_DOMAIN
+              value:

@@ -10,6 +10,7 @@ env:
   REGION: '${{ secrets.REGION }}' # TODO: update to your region
   SERVICE: 'expense-api' # TODO: update to your service name
   WORKLOAD_IDENTITY_PROVIDER: 'projects/531257834545/locations/global/workloadIdentityPools/github-actions/providers/github'
+  SERVICE_ACCOUNT: 'deploy-expense-api-cloud-run@sunny-bastion-458910-h9.iam.gserviceaccount.com'
   
 
 jobs:

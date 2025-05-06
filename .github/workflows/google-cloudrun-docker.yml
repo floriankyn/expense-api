@@ -9,7 +9,7 @@ env:
   PROJECT_ID: '${{ secrets.GOOGLE_PROJECT_ID }}' # TODO: update to your Google Cloud project ID
   REGION: '${{ secrets.REGION }}' # TODO: update to your region
   SERVICE: 'expense-api' # TODO: update to your service name
-  WORKLOAD_IDENTITY_PROVIDER: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider' # TODO: update to your workload identity provider
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/531257834545/locations/global/workloadIdentityPools/github-actions-cloud-run'
 
 jobs:
   deploy:
